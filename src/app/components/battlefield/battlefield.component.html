@@ -1,0 +1,41 @@
+<h1>{{title}}</h1>
+
+<h2>My Heroes</h2>
+
+<ul class="heroes">
+  <li *ngFor="let hero of heroes" (click) = "selectHero(hero)">
+    <span>{{hero.id}}</span> {{hero.name}}
+  </li>
+</ul>
+
+<hr>
+
+<div *ngIf="selectedHero">
+  <h1>{{selectedHero.name | uppercase}}</h1>
+  <p>{{selectedHero.type}}</p>
+
+</div>
+
+<button (click)="clearHeroSelected()">Clear</button>
+
+<hr>
+
+<div class="player">
+  <h1>Player: {{player1.name}}</h1>
+  <p>LIFE: {{player1.life}} | Score: {{player1.score}}</p>
+
+  <button (click)="attack(player1)">Basic Attack</button>
+  <button (click)="special(player1)">Special Attack</button>
+  <button (click)="heal(player1)">Heal</button>
+  <button (click)="surrender(player1)">Surrender</button>
+</div>
+
+<div class="enemy">
+  <h1>Enemy: {{enemy.name | uppercase}}</h1>
+  <p>LIFE: {{enemy.life}}</p>
+
+  <button (click)="attack(enemy)">Basic Attack</button>
+  <button (click)="special(enemy)">Special Attack</button>
+  <button (click)="heal(enemy)">Heal</button>
+  <button (click)="surrender(enemy)">Surrender</button>
+</div>

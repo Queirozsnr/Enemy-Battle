@@ -1,41 +1,51 @@
-<h1>{{title}}</h1>
+<div class="battle-container">
+  <div class="container life-container">
+    <div class="row justify-content-around">
+      <div class="col-5">
+        <h1>Jogador: {{player1.name}}</h1>
+        <p><ngb-progressbar [showValue]="true" [type]="player1.percentageType" height="3rem" [value]="player1.life"></ngb-progressbar></p>
+      </div>
 
-<h2>My Heroes</h2>
+      <div class="col-5">
+        <h1>Monstro: {{enemy.name | uppercase}}</h1>
+        <p><ngb-progressbar [showValue]="true" [type]="enemy.percentageType" height="3rem" [value]="enemy.life"></ngb-progressbar></p>
+      </div>
+    </div>
+  </div>
 
-<ul class="heroes">
-  <li *ngFor="let hero of heroes" (click) = "selectHero(hero)">
-    <span>{{hero.id}}</span> {{hero.name}}
-  </li>
-</ul>
+  <div class="container comands-main">
+    <h3>Comands</h3>
+    <div class="row justify-content-around comands-list">
+      <button type="button" class="btn col-2 btn-danger" (click)="attack(player1)">Ataque</button>
+      <button type="button" class="btn col-2 btn-warning" (click)="special(player1)">Ataque Especial</button>
+      <button type="button" class="btn col-2 btn-success" (click)="heal(player1)">Curar</button>
+      <button type="button" class="btn col-2 btn-secondary" (click)="surrender(player1)">Desistir</button>
+    </div>
+  </div>
 
-<hr>
+  <ul class="container log-main">
+    <li *ngFor="let log of listLog" class="row {{log.type}}-action-{{log.action}}">
+      <p *ngIf="log.type == 'player' && log.action == 'basic'" class="lead">Jogador atacou o monstro ({{log.value}})</p>
+      <p *ngIf="log.type == 'player' && log.action == 'special'" class="lead">Jogador usou o golpe especial ({{log.value}})</p>
+      <p *ngIf="log.type == 'player' && log.action == 'heal'" class="lead">Jogador usou a cura (+{{log.value}})</p>
 
-<div *ngIf="selectedHero">
-  <h1>{{selectedHero.name | uppercase}}</h1>
-  <p>{{selectedHero.type}}</p>
-
-</div>
-
-<button (click)="clearHeroSelected()">Clear</button>
-
-<hr>
-
-<div class="player">
-  <h1>Player: {{player1.name}}</h1>
-  <p>LIFE: {{player1.life}} | Score: {{player1.score}}</p>
-
-  <button (click)="attack(player1)">Basic Attack</button>
-  <button (click)="special(player1)">Special Attack</button>
-  <button (click)="heal(player1)">Heal</button>
-  <button (click)="surrender(player1)">Surrender</button>
-</div>
-
-<div class="enemy">
-  <h1>Enemy: {{enemy.name | uppercase}}</h1>
-  <p>LIFE: {{enemy.life}}</p>
-
-  <button (click)="attack(enemy)">Basic Attack</button>
-  <button (click)="special(enemy)">Special Attack</button>
-  <button (click)="heal(enemy)">Heal</button>
-  <button (click)="surrender(enemy)">Surrender</button>
+      <p *ngIf="log.type == 'monster' && log.action == 'basic'" class="lead">Monstro causou dano ({{log.value}})</p>
+      <p *ngIf="log.type == 'monster' && log.action == 'special'" class="lead">Monstro causou golpe especial ({{log.value}})</p>
+    </li>
+    <!-- <li class="row enemy-action-basic">
+      <p class="lead">Monstro casou dano (-11)</p>
+    </li>
+    <li class="row enemy-action-special">
+      <p class="lead">Monstro casou dano especial (-16)</p>
+    </li>
+    <li class="row player-action-basic">
+      <p class="lead">Player casou dano (-10)</p>
+    </li>
+    <li class="row player-action-special">
+      <p class="lead">Player casou dano especial (-15)</p>
+    </li>
+    <li class="row player-action-heal">
+      <p class="lead">Player usou a cura (+11)</p>
+    </li> -->
+  </ul>
 </div>

@@ -1,8 +1,7 @@
+import { PercentPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Enemy } from 'src/app/models/enemy';
 import { Player } from 'src/app/models/player';
-import {Hero} from '../../models/hero';
-import {HEROES} from '../../models/mock/mock-hero';
+import {Log} from '../../models/actionLog';
 
 @Component({
   selector: 'app-battlefield',
@@ -11,11 +10,10 @@ import {HEROES} from '../../models/mock/mock-hero';
 })
 export class BattlefieldComponent implements OnInit {
 
-  title = 'Welcome to Battlefield';
-
-  heroes = HEROES;
-
-  selectedHero?: Hero;
+  listLog: Log[] = [
+    {type: 'monster', action: 'basic', value: -15},
+    {type: 'monster', action: 'special', value: -40}
+  ]
 
   attackType = {
     attack: -6,
@@ -27,13 +25,15 @@ export class BattlefieldComponent implements OnInit {
     name: 'José',
     type: 'player',
     life: 100,
-    score: 0
+    score: 0,
+    percentageType: 'success'
   }
 
   enemy: Player = {
     name: 'Warwick',
     type: 'monster',
-    life: 100
+    life: 100,
+    percentageType: 'success'
   }
 
   constructor() { }
@@ -41,24 +41,19 @@ export class BattlefieldComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  selectHero(hero: Hero): void{
-    this.selectedHero = hero;
-  }
-
-  clearHeroSelected(): void{
-    this.selectedHero = undefined;
-  }
-
   attack(player : Player): void{
     this.attackHandler(player.type, this.attackType.attack);
+    this.addLogHandler(player.type,'basic', this.attackType.attack);
   }
 
   special(player : Player): void{
     this.attackHandler(player.type, this.attackType.special);
+    this.addLogHandler(player.type,'special', this.attackType.special);
   }
 
   heal(player : Player): void{
     this.attackHandler(player.type, this.attackType.heal);
+    this.addLogHandler(player.type,'heal', this.attackType.heal);
   }
 
   surrender(player : Player): void{
@@ -80,13 +75,44 @@ export class BattlefieldComponent implements OnInit {
         this.enemy.life += attackPoint;
       }
     }
-    if(this.player1.life < 0){
-      this.resetBattle();
+
+    this.percentageHandler();
+
+    if(this.player1.life <= 0){
       alert('O inimigo Venceu');
-    }else if(this.enemy.life < 0){
       this.resetBattle();
+    }else if(this.enemy.life <= 0){
       alert('Você venceu!!');
+      this.resetBattle();
     }
+  }
+
+  percentageHandler(){
+
+    //Porcentagem para o Inimigo
+    if(this.enemy.life >= 50){
+      this.enemy.percentageType = 'success'
+    }else{
+      this.enemy.percentageType = this.enemy.life <= 20? 'danger': 'warning';
+    }
+
+    //Porcentagem para o Player
+    if(this.player1.life >= 50){
+      this.player1.percentageType = 'success'
+    }else{
+      this.player1.percentageType = this.player1.life <= 20? 'danger': 'warning';
+    }
+
+    console.log(this.listLog);
+  }
+
+  addLogHandler(type:string, action:string, value:number){
+    let log: Log = {
+      type: type,
+      action: action,
+      value: value
+    }
+    this.listLog.push(log);
   }
 
   resetBattle(): void{

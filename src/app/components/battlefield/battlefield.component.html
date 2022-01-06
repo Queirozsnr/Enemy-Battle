@@ -17,35 +17,39 @@
     <h3>Comands</h3>
     <div class="row justify-content-around comands-list">
       <button type="button" class="btn col-2 btn-danger" (click)="attack(player1)">Ataque</button>
-      <button type="button" class="btn col-2 btn-warning" (click)="special(player1)">Ataque Especial</button>
+      <button *ngIf="player1.useSpecial == 2" type="button" class="btn col-2 btn-warning" (click)="special(player1)">Ataque Especial</button>
+      <button *ngIf="player1.useSpecial != 2" type="button" class="btn col-2 btn-warning disabled" (click)="special(player1)" disabled>Ataque Especial</button>
       <button type="button" class="btn col-2 btn-success" (click)="heal(player1)">Curar</button>
       <button type="button" class="btn col-2 btn-secondary" (click)="surrender(player1)">Desistir</button>
     </div>
   </div>
 
-  <ul class="container log-main">
-    <li *ngFor="let log of listLog" class="row {{log.type}}-action-{{log.action}}">
-      <p *ngIf="log.type == 'player' && log.action == 'basic'" class="lead">Jogador atacou o monstro ({{log.value}})</p>
-      <p *ngIf="log.type == 'player' && log.action == 'special'" class="lead">Jogador usou o golpe especial ({{log.value}})</p>
-      <p *ngIf="log.type == 'player' && log.action == 'heal'" class="lead">Jogador usou a cura (+{{log.value}})</p>
+  <div class="container log-header">
+    <h3>Log</h3>
+    <ul class="container log-main overflow-auto">
+      <li *ngFor="let log of listLog.reverse()" class="row {{log.type}}-action-{{log.action}}">
+        <p *ngIf="log.type == 'player' && log.action == 'basic'" class="lead">Jogador atacou o monstro ({{log.value}})</p>
+        <p *ngIf="log.type == 'player' && log.action == 'special'" class="lead">Jogador usou o golpe especial ({{log.value}})</p>
+        <p *ngIf="log.type == 'player' && log.action == 'heal'" class="lead">Jogador usou a cura (+{{log.value}})</p>
 
-      <p *ngIf="log.type == 'monster' && log.action == 'basic'" class="lead">Monstro causou dano ({{log.value}})</p>
-      <p *ngIf="log.type == 'monster' && log.action == 'special'" class="lead">Monstro causou golpe especial ({{log.value}})</p>
-    </li>
-    <!-- <li class="row enemy-action-basic">
-      <p class="lead">Monstro casou dano (-11)</p>
-    </li>
-    <li class="row enemy-action-special">
-      <p class="lead">Monstro casou dano especial (-16)</p>
-    </li>
-    <li class="row player-action-basic">
-      <p class="lead">Player casou dano (-10)</p>
-    </li>
-    <li class="row player-action-special">
-      <p class="lead">Player casou dano especial (-15)</p>
-    </li>
-    <li class="row player-action-heal">
-      <p class="lead">Player usou a cura (+11)</p>
-    </li> -->
-  </ul>
+        <p *ngIf="log.type == 'monster' && log.action == 'basic'" class="lead">Monstro causou dano ({{log.value}})</p>
+        <p *ngIf="log.type == 'monster' && log.action == 'special'" class="lead">Monstro causou golpe especial ({{log.value}})</p>
+      </li>
+      <!-- <li class="row enemy-action-basic">
+        <p class="lead">Monstro casou dano (-11)</p>
+      </li>
+      <li class="row enemy-action-special">
+        <p class="lead">Monstro casou dano especial (-16)</p>
+      </li>
+      <li class="row player-action-basic">
+        <p class="lead">Player casou dano (-10)</p>
+      </li>
+      <li class="row player-action-special">
+        <p class="lead">Player casou dano especial (-15)</p>
+      </li>
+      <li class="row player-action-heal">
+        <p class="lead">Player usou a cura (+11)</p>
+      </li> -->
+    </ul>
+  </div>
 </div>

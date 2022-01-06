@@ -3,5 +3,7 @@ export interface Player {
   type: 'player' | 'monster',
   life: number,
   score?: number,
-  percentageType: 'success' | 'warning' | 'danger'
+  percentageType: 'success' | 'warning' | 'danger',
+  turn:number,
+  useSpecial:number
 }

@@ -5,5 +5,6 @@ export interface Player {
   score?: number,
   percentageType: 'success' | 'warning' | 'danger',
   turn:number,
-  useSpecial:number
+  useSpecial:number,
+  round?:number
 }

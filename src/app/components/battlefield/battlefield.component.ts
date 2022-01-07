@@ -36,7 +36,8 @@ export class BattlefieldComponent implements OnInit {
     life: 100,
     percentageType: 'success',
     turn: 0,
-    useSpecial: 3
+    useSpecial: 3,
+    round: 0
   }
 
   constructor() { }
@@ -178,6 +179,7 @@ export class BattlefieldComponent implements OnInit {
   }
 
   verifyRound(type:string):boolean{
+    this.player1.round = (this.player1.turn + this.enemy.turn) + 1;
     if(type == 'monster'){
       if(this.enemy.turn < this.player1.turn){
         return true;
@@ -188,7 +190,7 @@ export class BattlefieldComponent implements OnInit {
       if(this.enemy.turn >= this.player1.turn){
         return true;
       }
-      alert("Vez do Oponente")
+      alert("Vez do Oponente");
       return false;
     }
   }
@@ -198,11 +200,15 @@ export class BattlefieldComponent implements OnInit {
   }
 
   resetBattle(): void{
+    this.player1.round = 0;
+
     this.player1.life = 100;
-    this.player1.percentageType = 'success'
+    this.player1.percentageType = 'success';
+    this.player1.turn = 0;
 
     this.enemy.life = 100;
-    this.enemy.percentageType = 'success'
+    this.enemy.percentageType = 'success';
+    this.enemy.turn = 0;
   }
 
 }

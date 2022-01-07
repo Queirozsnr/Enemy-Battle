@@ -11,74 +11,62 @@ import {Log} from '../../models/actionLog';
 
 export class BattlefieldComponent implements OnInit {
 
+  ngOnInit(): void {
+  }
+
   listLog: Log[] = [
   ]
 
-  attackType = {
-    attack: 0,
-    special: -11,
-    heal: 10
-  }
-
   player1: Player = {
-    name: 'José',
+    name: '',
     type: 'player',
     life: 100,
     score: 0,
     percentageType: 'success',
     turn: 0,
-    useSpecial: 2
+    useSpecial: 2,
+    round: 0
   }
 
   enemy: Player = {
-    name: 'Warwick',
+    name: '',
     type: 'monster',
     life: 100,
     percentageType: 'success',
     turn: 0,
-    useSpecial: 3,
-    round: 0
-  }
-
-  constructor() { }
-
-  ngOnInit(): void {
+    useSpecial: 3
   }
 
   attack(player : Player): void{
+    let attack = 0;
 
     if(player.type == 'monster'){
-      this.attackType.attack = this.randomIntFromInterval(-5, -13);
+      attack = this.calculateRandomAction(-5, -13);
 
       if(this.enemy.useSpecial < 3){
         this.enemy.useSpecial += 1;
 
       }else if(this.enemy.useSpecial == 3){
-        this.attackType.special = this.randomIntFromInterval(-7, -17);
-        this.attackHandler(player.type, this.attackType.special, 'special');
+        this.attackHandler(player.type, this.calculateRandomAction(-7, -17), 'special');
         return
       }
     }else{
-      this.attackType.attack = this.randomIntFromInterval(-4, -11);
+      attack = this.calculateRandomAction(-4, -11);
 
       if(this.player1.useSpecial < 2){
         this.player1.useSpecial += 1;
       }
     }
 
-    this.attackHandler(player.type, this.attackType.attack, 'basic');
+    this.attackHandler(player.type, attack, 'basic');
   }
 
   special(player : Player): void{
+    let special = player.type == 'monster'
+      ? this.calculateRandomAction(-7, -17)
+      : this.calculateRandomAction(-9, -21);
 
-    if(player.type == 'monster'){
-      this.attackType.special = this.randomIntFromInterval(-7, -17);
-    }else{
-      if(this.player1.turn){}
-      this.attackType.special = this.randomIntFromInterval(-9, -21);
-    }
-
-    this.attackHandler(player.type, this.attackType.special, 'special');
+    this.attackHandler(player.type, special, 'special');
   }
 
   heal(player : Player): void{
@@ -86,8 +74,7 @@ export class BattlefieldComponent implements OnInit {
       this.player1.useSpecial += 1;
     }
 
-    this.attackType.heal =  this.randomIntFromInterval(5, 10)
-    this.attackHandler(player.type, this.attackType.heal, 'heal');
+    this.attackHandler(player.type, this.calculateRandomAction(5, 15), 'heal');
   }
 
   surrender(player : Player): void{
@@ -95,13 +82,30 @@ export class BattlefieldComponent implements OnInit {
     alert("Você desistiu :(");
   }
 
-  attackHandler(type:string, attackPoint:number, action:string): boolean{
-    let round = this.verifyRound(type);
-    if(!round){
-      return false
+  attackHandler(type:string, attackPoint:number, action:string): void{
+
+    if(!this.verifyRound(type)){
+      return;
     }
+
     if(type == 'monster'){
-      this.enemy.turn += 1;
+      this.attackEnemyHandler(action, attackPoint);
+    }
+    else{
+      this.attackPlayerHandler(action, attackPoint);
+    }
+
+    this.percentageHandler();
+
+    this.addLogHandler(type, action, attackPoint);
+
+    if(type == 'player' && !this.verifyWinner()){
+      setTimeout( () => this.attack(this.enemy), 700 );
+    }
+  }
+
+  attackEnemyHandler(action: string, attackPoint: number) {
+    this.enemy.turn += 1;
 
       if(action == 'special'){
         this.enemy.useSpecial = 0;
@@ -112,9 +116,10 @@ export class BattlefieldComponent implements OnInit {
       }else{
         this.player1.life += attackPoint;
       }
-    }
-    else{
-      this.player1.turn += 1;
+  }
+
+  attackPlayerHandler(action: string, attackPoint: number) {
+    this.player1.turn += 1;
 
       if(action == 'special'){
         this.player1.useSpecial = 0;
@@ -125,33 +130,9 @@ export class BattlefieldComponent implements OnInit {
       }else{
         this.enemy.life += attackPoint;
       }
-    }
-    console.log(this.enemy.turn, this.player1.turn)
-
-    this.percentageHandler();
-
-    this.addLogHandler(type, action, this.attackType.attack);
-
-    if(this.player1.life <= 0){ //Verificação caso um dos jogadores fique com 0 de vida
-      alert('O inimigo Venceu');
-      this.resetBattle();
-      return false
-
-    }else if(this.enemy.life <= 0){
-      alert('Você venceu!!');
-      this.resetBattle();
-      return false
-    }
-
-    if(type == 'player'){
-      setTimeout( () => this.attack(this.enemy), 700 );
-    }
-
-    return true;
   }
 
   percentageHandler(){
-
     //Porcentagem da vida para o Inimigo
     if(this.enemy.life >= 50){
       this.enemy.percentageType = 'success'
@@ -180,6 +161,7 @@ export class BattlefieldComponent implements OnInit {
 
   verifyRound(type:string):boolean{
     this.player1.round = (this.player1.turn + this.enemy.turn) + 1;
+
     if(type == 'monster'){
       if(this.enemy.turn < this.player1.turn){
         return true;
@@ -195,7 +177,21 @@ export class BattlefieldComponent implements OnInit {
     }
   }
 
-  randomIntFromInterval(min:number, max:number) {
+  verifyWinner(): boolean{
+    if(this.player1.life <= 0){
+      alert('O inimigo Venceu');
+      this.resetBattle();
+      return true;
+
+    }else if(this.enemy.life <= 0){
+      alert('Você venceu!!');
+      this.resetBattle();
+      return true;
+    }
+    return false;
+  }
+
+  calculateRandomAction(min:number, max:number) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 

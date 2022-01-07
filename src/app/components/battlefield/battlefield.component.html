@@ -3,12 +3,12 @@
   <div class="container life-container">
     <div class="row justify-content-around">
       <div class="col-5">
-        <h1>Jogador: {{player1.name}}</h1>
+        <h1>Jogador</h1>
         <p><ngb-progressbar [showValue]="true" [type]="player1.percentageType" height="3rem" [value]="player1.life"></ngb-progressbar></p>
       </div>
 
       <div class="col-5">
-        <h1>Monstro: {{enemy.name | uppercase}}</h1>
+        <h1>Monstro</h1>
         <p><ngb-progressbar [showValue]="true" [type]="enemy.percentageType" height="3rem" [value]="enemy.life"></ngb-progressbar></p>
       </div>
     </div>
@@ -21,7 +21,7 @@
       <button *ngIf="player1.useSpecial == 2" type="button" class="btn col-2 btn-warning" (click)="special(player1)">Ataque Especial</button>
       <button *ngIf="player1.useSpecial != 2" type="button" class="btn col-2 btn-warning disabled" (click)="special(player1)" disabled>Ataque Especial</button>
       <button type="button" class="btn col-2 btn-success" (click)="heal(player1)">Curar</button>
-      <button type="button" class="btn col-2 btn-secondary" (click)="surrender(player1)">Desistir</button>
+      <a type="button" class="btn col-2 btn-secondary" routerLink="/" (click)="surrender(player1)">Desistir</a>
     </div>
   </div>
 

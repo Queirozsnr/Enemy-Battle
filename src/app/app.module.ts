@@ -7,11 +7,15 @@ import { BattlefieldComponent } from './components/battlefield/battlefield.compo
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './pages/home/home.component';
+import { RuleComponent } from './pages/rule/rule.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BattlefieldComponent
+    BattlefieldComponent,
+    HomeComponent,
+    RuleComponent
   ],
   imports: [
     BrowserModule,

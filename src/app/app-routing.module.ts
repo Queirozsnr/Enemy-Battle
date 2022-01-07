@@ -1,10 +1,17 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
+import {BattlefieldComponent} from '../app/components/battlefield/battlefield.component';
+import {HomeComponent} from '../app/pages/home/home.component';
+import {RuleComponent} from '../app/pages/rule/rule.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {path: '', component: HomeComponent},
+  {path: 'rule', component: RuleComponent},
+  {path: 'battle', component: BattlefieldComponent},
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }

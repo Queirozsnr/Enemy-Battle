@@ -1,8 +1,9 @@
-import { PercentPipe } from '@angular/common';
+import { PercentPipe, formatDate } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Player } from 'src/app/models/player';
 import {Log} from '../../models/actionLog';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-battlefield',
@@ -16,13 +17,28 @@ export class BattlefieldComponent implements OnInit {
 
   closeModal?: string;
 
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal, private api: ApiService) {}
 
   triggerModal(content:any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
       this.closeModal = `Closed with: ${res}`;
+      if (res == 'save') {
+        this.sendPost();
+      }else{
+        this.resetBattle();
+      }
     }, (res) => {
       this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
+      this.resetBattle();
+    });
+  }
+  sendPost() {
+    var date = new Date().toLocaleString();
+
+    this.api.postScore({
+      "playerName": this.player1.name,
+      "data": date,
+      "score": this.player1.score
     });
   }
 
@@ -36,11 +52,7 @@ export class BattlefieldComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    if(this.enemy.name == 'sim'){
-      this.triggerModal(this.modalData)
-    }
-  }
+  ngOnInit(): void {}
 
   listLog: Log[] = [
   ]
@@ -211,16 +223,20 @@ export class BattlefieldComponent implements OnInit {
   verifyWinner(): boolean{
     if(this.player1.life <= 0){
       alert('O inimigo Venceu');
-      this.resetBattle();
-      this.enemy.name = 'sim'
-      this.ngOnInit()
+      //this.resetBattle();
+      this.triggerModal(this.modalData)
       return true;
 
     }else if(this.enemy.life <= 0){
       alert('Você venceu!!');
-      this.enemy.name = 'sim'
-      this.ngOnInit()
-      this.resetBattle();
+      this.triggerModal(this.modalData)
+      this.player1.score = Math.round((this.player1.life * 1000) /  this.player1.turn)
+
+      console.log("Score final: " +this.player1.score)
+      console.log("Vida final: " +this.player1.life)
+      console.log("Turno final: " +this.player1.turn)
+
+      //this.resetBattle();
       return true;
     }
     return false;

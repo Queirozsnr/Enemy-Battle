@@ -40,8 +40,6 @@
   </div>
 </div>
 
-<button class="btn btn-danger" (click)="triggerModal(modalData)">Open Modal</button>
-
 <ng-template #modalData let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Fim de jogo</h4>
@@ -49,24 +47,16 @@
       <span aria-hidden="true">×</span>
     </button>
   </div>
-  <div class="md-form">
-    <label for="form1" class="">Nome</label>
-    <input mdbInput type="text" id="form1" class="form-control">
+  <div class="md-form" style="padding: 1rem;">
+    <label for="form1" class="">Nome:</label>
+    <input  [(ngModel)]="player1.name" type="text" id="form1" class="form-control" placeholder="Digite seu Nome">
     <br>
   </div>
-  <div class="form-group">
-    <label for="dateOfBirth">Data da Partida</label>
-    <div class="input-group">
-      <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
-          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-        </svg></button>
-      </div>
-    </div>
+  <div style="padding: 1rem;">
+    <p>Pontuação: {{player1.score}}</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Reiniciar Partida</button>
-    <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Salvar</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('reset')">Reiniciar Partida</button>
+    <button routerLink="/ranking" type="button" class="btn btn-success" (click)="modal.close('save')">Salvar</button>
   </div>
 </ng-template>

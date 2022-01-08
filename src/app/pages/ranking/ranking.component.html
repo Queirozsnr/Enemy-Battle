@@ -1,1 +1,7 @@
-<p>ranking works!</p>
+<ul *ngFor="let ranking of listRanking">
+  <li>
+    <p>{{ranking.playerName}}</p>
+    <p>{{ranking.score}}</p>
+    <p>{{ranking.data}}</p>
+  </li>
+</ul>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import axios from 'axios'
+import { Score } from '../models/score';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,12 @@ export class ApiService {
 
   constructor() {}
 
-  getScore(){
-    this.api.get("scores/")
+  getScore():Promise <Array<Score>>{
+    return this.api.get("scores/");
+  }
+
+  postScore(score:any){
+    this.api.post('scores/', score)
       .then((response:any) => console.log(response.data))
       .catch((err:any) => {
         console.error("ops! ocorreu um erro" + err);

@@ -1,0 +1,62 @@
+<div class="battle-container">
+  <h1>Round: {{player1.round}}</h1>
+  <div class="container life-container">
+    <div class="row justify-content-around">
+      <div class="col-5">
+        <h1>Jogador</h1>
+        <p><ngb-progressbar [showValue]="true" [type]="player1.percentageType" height="3rem" [value]="player1.life"></ngb-progressbar></p>
+      </div>
+
+      <div class="col-5">
+        <h1>Monstro</h1>
+        <p><ngb-progressbar [showValue]="true" [type]="enemy.percentageType" height="3rem" [value]="enemy.life"></ngb-progressbar></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container comands-main">
+    <h3>Comandos</h3>
+    <div class="row justify-content-around comands-list">
+      <button type="button" class="btn col-2 btn-danger" (click)="attack(player1)">Ataque</button>
+      <button *ngIf="player1.useSpecial == 2" type="button" class="btn col-2 btn-warning" (click)="special(player1)">Ataque Especial</button>
+      <button *ngIf="player1.useSpecial != 2" type="button" class="btn col-2 btn-warning disabled" (click)="special(player1)" disabled>Ataque Especial</button>
+      <button type="button" class="btn col-2 btn-success" (click)="heal(player1)">Curar</button>
+      <a type="button" class="btn col-2 btn-secondary" routerLink="/" (click)="surrender(player1)">Desistir</a>
+    </div>
+  </div>
+
+  <div class="container log-header">
+    <h3>Log</h3>
+    <ul class="container log-main overflow-auto">
+      <li *ngFor="let log of listLog.reverse()" class="row {{log.type}}-action-{{log.action}}">
+        <p *ngIf="log.type == 'player' && log.action == 'basic'" class="lead">Jogador atacou o monstro ({{log.value}})</p>
+        <p *ngIf="log.type == 'player' && log.action == 'special'" class="lead">Jogador usou o golpe especial ({{log.value}})</p>
+        <p *ngIf="log.type == 'player' && log.action == 'heal'" class="lead">Jogador usou a cura (+{{log.value}})</p>
+
+        <p *ngIf="log.type == 'monster' && log.action == 'basic'" class="lead">Monstro causou dano ({{log.value}})</p>
+        <p *ngIf="log.type == 'monster' && log.action == 'special'" class="lead">Monstro causou golpe especial ({{log.value}})</p>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<ng-template #modalData let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Fim de jogo</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="md-form" style="padding: 1rem;">
+    <label for="form1" class="">Nome:</label>
+    <input  [(ngModel)]="player1.name" type="text" id="form1" class="form-control" placeholder="Digite seu Nome">
+    <br>
+  </div>
+  <div style="padding: 1rem;">
+    <p>Pontuação: {{player1.score}}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close('reset')">Reiniciar Partida</button>
+    <button routerLink="/ranking" type="button" class="btn btn-success" (click)="modal.close('save')">Salvar</button>
+  </div>
+</ng-template>

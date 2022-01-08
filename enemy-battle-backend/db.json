@@ -1,0 +1,46 @@
+{
+  "scores": [
+    {
+      "id": 0,
+      "playerName": "José Ribamar",
+      "data": "07/01/2022",
+      "score": 800
+    },
+    {
+      "id": 1,
+      "playerName": "Leonardo Valcacio",
+      "data": "06/01/2022",
+      "score": 1000
+    },
+    {
+      "playerName": "José Ribamar",
+      "data": "08/01/2022 14:26:40",
+      "score": 900,
+      "id": 2
+    },
+    {
+      "playerName": "José Ribamar",
+      "data": "08/01/2022 15:37:59",
+      "score": 2778,
+      "id": 3
+    },
+    {
+      "playerName": "João",
+      "data": "08/01/2022 15:39:07",
+      "score": 0,
+      "id": 4
+    },
+    {
+      "playerName": "Joana",
+      "data": "08/01/2022 15:40:53",
+      "score": 0,
+      "id": 5
+    },
+    {
+      "playerName": "Agostinho",
+      "data": "08/01/2022 15:57:00",
+      "score": 273,
+      "id": 6
+    }
+  ]
+}

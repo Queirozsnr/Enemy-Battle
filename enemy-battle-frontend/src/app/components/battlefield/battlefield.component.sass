@@ -1,0 +1,71 @@
+.battle-container
+  margin: 3rem
+
+  h1
+    display: flex
+    justify-content: center
+
+.comands-main
+  margin-top: 5rem
+
+  h3
+    display: flex
+    justify-content: center
+
+button
+  color: white
+  font-weight: bold
+
+.log-main
+  height: 25rem
+
+  li
+    height: 3rem
+    margin-bottom: 1rem
+    color: white
+
+  .monster-action
+    background-color: #c7ddc7
+    display: flex
+    justify-content: right
+    padding-right: 1rem
+    p
+      display: flex
+      text-align: center
+      margin-top: 8px
+
+    &-basic
+      @extend .monster-action
+      background-color: #ff2f2f
+
+    &-special
+      @extend .monster-action
+      background-color: #8a1313
+
+  .player-action
+    background-color: #c7ddc7
+    display: flex
+    padding-left: 1rem
+    p
+      display: flex
+      text-align: center
+      margin-top: 8px
+
+    &-basic
+      @extend .player-action
+      background-color: #7e4cf3
+
+    &-special
+      @extend .player-action
+      background-color: #778000
+
+    &-heal
+      @extend .player-action
+      background-color: #028a24
+
+.log-header
+  margin-top: 5rem
+
+  h3
+    display: flex
+    justify-content: center

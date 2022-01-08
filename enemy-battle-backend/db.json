@@ -3,13 +3,13 @@
     {
       "id": 0,
       "playerName": "José Ribamar",
-      "data": "07/01/2022",
+      "data": "07/01/2022 14:20:45",
       "score": 800
     },
     {
       "id": 1,
       "playerName": "Leonardo Valcacio",
-      "data": "06/01/2022",
+      "data": "06/01/2022 14:46:24",
       "score": 1000
     },
     {
@@ -41,6 +41,12 @@
       "data": "08/01/2022 15:57:00",
       "score": 273,
       "id": 6
+    },
+    {
+      "playerName": "José Ribamar",
+      "data": "08/01/2022 19:22:05",
+      "score": 1850,
+      "id": 7
     }
   ]
 }

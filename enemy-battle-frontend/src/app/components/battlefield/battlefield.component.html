@@ -40,7 +40,7 @@
   </div>
 </div>
 
-<ng-template #modalData let-modal>
+<ng-template #modalData let-modal #content let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Fim de jogo</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -48,8 +48,8 @@
     </button>
   </div>
   <div class="md-form" style="padding: 1rem;">
-    <label for="form1" class="">Nome:</label>
-    <input  [(ngModel)]="player1.name" type="text" id="form1" class="form-control" placeholder="Digite seu Nome">
+    <label for="form1" class="">*Nome:</label>
+    <input  [(ngModel)]="player1.name" type="text" id="form1" class="form-control" placeholder="Digite seu Nome" required>
     <br>
   </div>
   <div style="padding: 1rem;">
@@ -57,6 +57,6 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="modal.close('reset')">Reiniciar Partida</button>
-    <button routerLink="/ranking" type="button" class="btn btn-success" (click)="modal.close('save')">Salvar</button>
+    <button type="button" class="btn btn-success" *ngIf="player1.name != ''" routerLink="/ranking" (click)="modal.close('save')">Salvar</button>
   </div>
 </ng-template>

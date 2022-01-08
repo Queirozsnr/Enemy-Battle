@@ -1,7 +1,21 @@
-<ul *ngFor="let ranking of listRanking">
-  <li>
-    <p>{{ranking.playerName}}</p>
-    <p>{{ranking.score}}</p>
-    <p>{{ranking.data}}</p>
-  </li>
-</ul>
+<div class="main-ranking">
+  <h1 class="h1">Ranking</h1>
+  <div class="ranking">
+    <table class="table table-striped ranking">
+      <thead>
+      <tr>
+        <th scope="col" sortable="name">Score</th>
+        <th scope="col" sortable="data" >Nome</th>
+        <th scope="col" sortable="score">Data</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let ranking of listRanking">
+        <td>{{ ranking.score}}</td>
+        <td>{{ ranking.playerName }}</td>
+        <td>{{ ranking.data}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,51 +1,40 @@
 <div class="main-rule">
   <h1 class="h1">Regras do jogo</h1>
 
-  <h3 class="h3">Modo de Jogar: </h3>
+  <h3 class="h3">Modo de Jogar</h3>
   <ul class="game-mode">
     <li>O jogo deverá ser de turnos, sendo cada turno uma interação do jogador e uma interação automática do inimigo.</li>
     <li>O jogador e o inimigo deverão ter uma barra de vida, ambos terão a mesma quantidade de pontos de vida (100).</li>
   </ul>
 
-  <h3 class="h3">Ações do Jogador:</h3>
+  <h3 class="h3">Ações do Jogador</h3>
   <div class="actions-player">
     <h5>Ataque Básico</h5>
-    <p>O jogador irá causar um dano no inimigo que será reduzido dos pontos de vida do mesmo, deve ser um valor aleatório entre 5 e 10.</p>
+    <ul>
+      <li>O jogador irá causar um dano no inimigo que será reduzido dos pontos de vida do mesmo, deve ser um valor aleatório entre 5 e 10.</li>
+    </ul>
 
     <h5>Ataque Especial</h5>
-    <p>O jogador irá causar um dano no inimigo que será reduzido dos pontos de vida do mesmo, deve ser um valor aleatório entre 10 e 20.</p>
-    <p>O ataque especial necessita de no mínimo 2 turnos após utilização e deverá estar desabilitado enquanto não carregado, ou seja, o botão não pode ser acionado por 2 turnos após sua utilização.
-      Ao acionar o ataque especial o inimigo tem 50% de chance de não atacar no próximo turno, e deve ser apresentado um indicativo de que o inimigo está atordoado</p>
+    <li>O jogador irá causar um dano no inimigo que será reduzido dos pontos de vida do mesmo, deve ser um valor aleatório entre 10 e 20.</li>
+    <li>O ataque especial necessita de no mínimo 2 turnos após utilização e deverá estar desabilitado enquanto não carregado,
+      ou seja, o botão não pode ser acionado por 2 turnos após sua utilização.</li>
 
-    <h5>Ataque Básico</h5>
-    <p>O jogador irá causar um dano no inimigo que será reduzido dos pontos de vida do mesmo, deve ser um valor aleatório entre 5 e 10.</p>
+    <h5>Curar</h5>
+    <li>O jogador receberá um aumento nos seus pontos de vida que deverá ser um valor randômico entre 5 e 15.</li>
 
-    <h5>Ataque Básico</h5>
-    <p>O jogador irá causar um dano no inimigo que será reduzido dos pontos de vida do mesmo, deve ser um valor aleatório entre 5 e 10.</p>
-
+    <h5>Desistir</h5>
+    <p>O jogo será e irá para a tela de inicio do jogo</p>
   </div>
 
-  <h3 class="h3">Modo de Jogar: </h3>
-  <ul class="game-mode">
+  <h3 class="h3">Ações do Inimigo</h3>
+  <div class="actions-enemy">
+    <h5>Ataque Básico</h5>
+    <ul>
+      <li>O inimigo irá causar um dano no jogador que será reduzido dos pontos de vida do mesmo, deve ser um valor aleatório entre 6 e 12.</li>
+    </ul>
 
-  </ul>
-  <p>
-    O jogador deverá ter 4 botões de interação a seguir:
-
-
-
-    O ataque especial necessita de no mínimo 2 turnos após utilização e deverá estar desabilitado enquanto não carregado, ou seja, o botão não pode ser acionado por 2 turnos após sua utilização.
-    Ao acionar o ataque especial o inimigo tem 50% de chance de não atacar no próximo turno, e deve ser apresentado um indicativo de que o inimigo está atordoado (Opcional).
-    Curar
-    O jogador receberá um aumento nos seus pontos de vida que deverá ser um valor randômico entre 5 e 15.
-    Desistir
-    O jogo deverá ser terminado e ir para tela de inicio do jogo
-    Ações do inimigo
-    As ações do inimigo devem acontecer automaticamente, logo após uma das ações do jogador, ou seja, se os pontos de vida do inimigo atingirem zero antes da sua ação ele não deve realizar a mesma
-    O inimigo pode realizar as seguintes ações:
-    Ataque Básico
-    O inimigo irá causar um dano no jogador que será reduzido dos pontos de vida do mesmo, deve ser um valor aleatório entre 6 e 12.
-    Ataque Especial
-    O inimigo irá causar um dano no jogador que será reduzido dos pontos de vida do mesmo, deve ser um valor aleatório entre 8 e 16.
-    O ataque especial do inimigo deverá ser acionado automaticamente a cada 3 turnos.</p>
+    <h5>Ataque Especial</h5>
+    <li>O inimigo irá causar um dano no jogador que será reduzido dos pontos de vida do mesmo, deve ser um valor aleatório entre 8 e 16.</li>
+    <li>O ataque especial do inimigo é acionado automaticamente a cada 3 turnos.</li>
+  </div>
 </div>

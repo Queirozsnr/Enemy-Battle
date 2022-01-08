@@ -1,7 +1,8 @@
 import { PercentPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Player } from 'src/app/models/player';
 import {Log} from '../../models/actionLog';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-battlefield',
@@ -11,7 +12,34 @@ import {Log} from '../../models/actionLog';
 
 export class BattlefieldComponent implements OnInit {
 
+  @ViewChild('modalData') modalData?:ElementRef;
+
+  closeModal?: string;
+
+  constructor(private modalService: NgbModal) {}
+
+  triggerModal(content:any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
+      this.closeModal = `Closed with: ${res}`;
+    }, (res) => {
+      this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
+
   ngOnInit(): void {
+    if(this.enemy.name == 'sim'){
+      this.triggerModal(this.modalData)
+    }
   }
 
   listLog: Log[] = [
@@ -104,7 +132,7 @@ export class BattlefieldComponent implements OnInit {
     }
 
     if(type == 'player'){
-      setTimeout( () => this.attack(this.enemy), 700 );
+      setTimeout( () => this.attack(this.enemy), 900 );
     }
   }
 
@@ -163,14 +191,13 @@ export class BattlefieldComponent implements OnInit {
     this.listLog.push(log);
   }
 
-  verifyRound(type:string):boolean{
+  verifyRound(type:string):boolean{ //Verifica os turnos de jogada
     this.player1.round = (this.player1.turn + this.enemy.turn) + 1;
 
     if(type == 'monster'){
       if(this.enemy.turn < this.player1.turn){
         return true;
       }
-      alert("Vez do Jogador");
       return false;
     }else{
       if(this.enemy.turn >= this.player1.turn){
@@ -185,10 +212,14 @@ export class BattlefieldComponent implements OnInit {
     if(this.player1.life <= 0){
       alert('O inimigo Venceu');
       this.resetBattle();
+      this.enemy.name = 'sim'
+      this.ngOnInit()
       return true;
 
     }else if(this.enemy.life <= 0){
       alert('Você venceu!!');
+      this.enemy.name = 'sim'
+      this.ngOnInit()
       this.resetBattle();
       return true;
     }
@@ -205,10 +236,14 @@ export class BattlefieldComponent implements OnInit {
     this.player1.life = 100;
     this.player1.percentageType = 'success';
     this.player1.turn = 0;
+    this.player1.useSpecial = 2;
 
     this.enemy.life = 100;
     this.enemy.percentageType = 'success';
     this.enemy.turn = 0;
+    this.enemy.useSpecial = 3;
+
+    this.listLog = []
   }
 
 }

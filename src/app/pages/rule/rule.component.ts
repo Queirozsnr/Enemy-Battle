@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ApiService} from '../../services/api.service';
 
 @Component({
   selector: 'app-rule',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RuleComponent implements OnInit {
 
-  constructor() { }
+  constructor(private apiService:ApiService) {}
 
   ngOnInit(): void {
+    this.apiService.getScore()
   }
 
 }

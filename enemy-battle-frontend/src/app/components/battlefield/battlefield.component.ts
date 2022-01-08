@@ -2,13 +2,15 @@ import { PercentPipe, formatDate } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Player } from 'src/app/models/player';
 import {Log} from '../../models/actionLog';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ModalDismissReasons, NgbModal, NgbModalConfig} from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-battlefield',
   templateUrl: './battlefield.component.html',
-  styleUrls: ['./battlefield.component.sass']
+  styleUrls: ['./battlefield.component.sass'],
+
+  providers: [NgbModalConfig, NgbModal]
 })
 
 export class BattlefieldComponent implements OnInit {
@@ -17,7 +19,10 @@ export class BattlefieldComponent implements OnInit {
 
   closeModal?: string;
 
-  constructor(private modalService: NgbModal, private api: ApiService) {}
+  constructor(config: NgbModalConfig, private modalService: NgbModal, private api: ApiService) {
+    config.backdrop = 'static';
+    config.keyboard = false;
+  }
 
   triggerModal(content:any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
@@ -113,13 +118,16 @@ export class BattlefieldComponent implements OnInit {
     if(this.player1.useSpecial < 2){
       this.player1.useSpecial += 1;
     }
-
-    this.attackHandler(player.type, this.calculateRandomAction(5, 15), 'heal');
+    if(this.player1.life == 100){
+      alert("Sua vida está cheia!");
+    }else{
+      this.attackHandler(player.type, this.calculateRandomAction(5, 15), 'heal');
+    }
   }
 
   surrender(player : Player): void{
     this.resetBattle();
-    alert("Você desistiu :(");
+    alert('Você desistiu');
   }
 
   attackHandler(type:string, attackPoint:number, action:string): void{
@@ -261,5 +269,4 @@ export class BattlefieldComponent implements OnInit {
 
     this.listLog = []
   }
-
 }

@@ -24,7 +24,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 Podemos considerar este projeto como sendo divido em duas partes:
 
 <ol dir="auto">
-<li>Front end (pasta web)</li>
+<li>Front end (Angular)</li>
 <li>Back end (pasta json-server)</li>
 </ol>
 

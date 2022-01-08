@@ -9,13 +9,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './pages/home/home.component';
 import { RuleComponent } from './pages/rule/rule.component';
+import { RankingComponent } from './pages/ranking/ranking.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BattlefieldComponent,
     HomeComponent,
-    RuleComponent
+    RuleComponent,
+    RankingComponent,
   ],
   imports: [
     BrowserModule,

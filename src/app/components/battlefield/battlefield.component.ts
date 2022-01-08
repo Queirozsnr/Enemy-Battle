@@ -99,7 +99,11 @@ export class BattlefieldComponent implements OnInit {
 
     this.addLogHandler(type, action, attackPoint);
 
-    if(type == 'player' && !this.verifyWinner()){
+    if(this.verifyWinner()){
+      return
+    }
+
+    if(type == 'player'){
       setTimeout( () => this.attack(this.enemy), 700 );
     }
   }
